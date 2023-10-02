@@ -21,6 +21,21 @@ class EventsTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
+  test "should create nested venues" do
+    visit events_url
+    click_on "New event"
+
+    fill_in "Content", with: @event.content
+    fill_in "Venue Content", with: "Hello World", match: :first
+
+    assert_difference("Venue.count", 3) do 
+      click_on "Create Event"
+    end
+
+    assert_text "Event was successfully created"
+    click_on "Back"
+  end
+
   test "should update Event" do
     visit event_url(@event)
     click_on "Edit this event", match: :first

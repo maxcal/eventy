@@ -17,7 +17,25 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create event" do
     assert_difference("Event.count") do
-      post events_url, params: { event: { content: @event.content } }
+      post events_url, params: { 
+        event: { content: @event.content }
+      }
+    end
+
+    assert_redirected_to event_url(Event.last)
+  end
+
+  test "should create nested venues" do
+    assert_difference("Venue.count", 2) do
+      post events_url, params: { 
+        event: { 
+          content: @event.content,
+          venues_attributes: [
+            { content: 'Foo' },
+            { content: 'Bar' }
+          ]
+        }
+      }
     end
 
     assert_redirected_to event_url(Event.last)

@@ -13,6 +13,7 @@ class EventsController < ApplicationController
   # GET /events/new
   def new
     @event = Event.new
+    3.times { @event.venues.new }
   end
 
   # GET /events/1/edit
@@ -22,7 +23,6 @@ class EventsController < ApplicationController
   # POST /events
   def create
     @event = Event.new(event_params)
-
     if @event.save
       redirect_to @event, notice: "Event was successfully created."
     else
@@ -53,6 +53,7 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.require(:event).permit(:content)
+      params.require(:event)
+            .permit(:content, venues_attributes: [:content])
     end
 end

@@ -11,6 +11,16 @@
     </div>
   <% end %>
 
+  <fieldset class="venue-fields">
+    <legend>Venues</legend>
+    <%= form.fields_for :venues do |ff| %>
+      <div class="field">
+        <%= ff.label :content, "Venue Content" %>
+        <%= ff.text_area :content  %>
+      </div>
+    <% end %>
+  </fieldset>
+
   <div>
     <%= form.label :content, style: "display: block" %>
     <%= form.text_area :content %>
